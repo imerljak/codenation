@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="challenge.MainTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2019-01-22T00:17:15" hostname="israel-pc" time="8.057">
+  <properties/>
+  <testcase name="q1" classname="challenge.MainTest" time="2.134"/>
+  <testcase name="q2" classname="challenge.MainTest" time="1.24"/>
+  <testcase name="q3" classname="challenge.MainTest" time="0.918"/>
+  <testcase name="q4" classname="challenge.MainTest" time="1.892"/>
+  <testcase name="q5" classname="challenge.MainTest" time="0.937"/>
+  <testcase name="q6" classname="challenge.MainTest" time="0.936"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
