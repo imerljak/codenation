@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-
-	CsvReader reader = new CsvReader("data.csv");
+	private CsvReader reader = new CsvReader("data.csv");
 
 	// Quantas nacionalidades (coluna `nationality`) diferentes existem no arquivo?
 	public int q1() {
