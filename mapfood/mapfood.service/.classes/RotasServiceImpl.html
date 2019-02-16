@@ -1,0 +1,186 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RotasServiceImpl</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">mapfood.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RotasServiceImpl (mapfood.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RotasServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    14,3%
+  </span>
+  <span class="absValue">
+    (1/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    17,1%
+  </span>
+  <span class="absValue">
+    (7/ 41)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package mapfood.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import mapfood.exceptions.ClienteMuitoDistanteException;
+<i>4</i>&nbsp;import mapfood.exceptions.ClienteNaoEncontradoException;
+<i>5</i>&nbsp;import mapfood.exceptions.EstabelecimentoNaoEncontradoException;
+<i>6</i>&nbsp;import mapfood.model.dto.*;
+<i>7</i>&nbsp;import mapfood.model.jpa.Posicao;
+<i>8</i>&nbsp;import mapfood.rotas.RotaProvider;
+<i>9</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>10</i>&nbsp;import org.springframework.beans.factory.annotation.Value;
+<i>11</i>&nbsp;import org.springframework.context.ApplicationEventPublisher;
+<i>12</i>&nbsp;import org.springframework.stereotype.Service;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;import java.util.List;
+<i>15</i>&nbsp;import java.util.concurrent.CompletableFuture;
+<i>16</i>&nbsp;import java.util.stream.Collectors;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;@Service
+<i>19</i>&nbsp;public class RotasServiceImpl implements RotasService {
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    private final ApplicationEventPublisher publisher;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    private final RotaProvider rotaProvider;
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    private final EstabelecimentoService estabelecimentoService;
+<i>26</i>&nbsp;    private final ClienteService clienteService;
+<i>27</i>&nbsp;    private final MotoboyService motoboyService;
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    @Value(&quot;${mapfood.valores.consumo-motocicleta}&quot;)
+<i>31</i>&nbsp;    public double cosumoMotocicleta;
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    @Value(&quot;${mapfood.valores.limite-distancia-entrega}&quot;)
+<i>34</i>&nbsp;    private Double limiteKmEntrega;
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    @Autowired
+<b class="fc"><i>37</i>&nbsp;    public RotasServiceImpl(ApplicationEventPublisher publisher, EstabelecimentoService estabelecimentoService, ClienteService clienteService, MotoboyService motoboyService, RotaProvider rotaProvider) {</b>
+<b class="fc"><i>38</i>&nbsp;        this.publisher = publisher;</b>
+<b class="fc"><i>39</i>&nbsp;        this.estabelecimentoService = estabelecimentoService;</b>
+<b class="fc"><i>40</i>&nbsp;        this.clienteService = clienteService;</b>
+<b class="fc"><i>41</i>&nbsp;        this.motoboyService = motoboyService;</b>
+<b class="fc"><i>42</i>&nbsp;        this.rotaProvider = rotaProvider;</b>
+<b class="fc"><i>43</i>&nbsp;    }</b>
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    @Override
+<i>46</i>&nbsp;    public CompletableFuture&lt;ResultadoRota&gt; getMelhorRotaPara(SolicitacaoEntrega solicitacaoEntrega) {
+<i>47</i>&nbsp;
+<b class="nc"><i>48</i>&nbsp;        final EstabelecimentoDTO estabelecimentoDTO = estabelecimentoService.findById(solicitacaoEntrega.getIdEstabelecimento())</b>
+<b class="nc"><i>49</i>&nbsp;                .orElseThrow(() -&gt; new EstabelecimentoNaoEncontradoException(solicitacaoEntrega.getIdEstabelecimento()));</b>
+<i>50</i>&nbsp;
+<b class="nc"><i>51</i>&nbsp;        List&lt;ClienteDTO&gt; clientesDosPedidos = getClientesDosPedidos(solicitacaoEntrega.getPedidos());</b>
+<i>52</i>&nbsp;
+<b class="nc"><i>53</i>&nbsp;        validaTodosClientesDentroDaDistanciaLimite(clientesDosPedidos, estabelecimentoDTO.getPosicao());</b>
+<i>54</i>&nbsp;
+<b class="nc"><i>55</i>&nbsp;        final MotoboyDTO motoboyMaisProximo = motoboyService</b>
+<b class="nc"><i>56</i>&nbsp;                .buscaMaisProximo(estabelecimentoDTO.getPosicao(), limiteKmEntrega)</b>
+<b class="nc"><i>57</i>&nbsp;                .orElseThrow(RuntimeException::new);</b>
+<i>58</i>&nbsp;
+<b class="nc"><i>59</i>&nbsp;        List&lt;Posicao&gt; posicaoDosClientes = clientesDosPedidos</b>
+<b class="nc"><i>60</i>&nbsp;                .parallelStream()</b>
+<b class="nc"><i>61</i>&nbsp;                .map(ClienteDTO::getPosicao)</b>
+<b class="nc"><i>62</i>&nbsp;                .collect(Collectors.toList());</b>
+<i>63</i>&nbsp;
+<b class="nc"><i>64</i>&nbsp;        return rotaProvider.getRota(motoboyMaisProximo.getPosicao(), estabelecimentoDTO.getPosicao(), posicaoDosClientes)</b>
+<b class="nc"><i>65</i>&nbsp;                .thenApply(rota -&gt; {</b>
+<b class="nc"><i>66</i>&nbsp;                    final ResultadoRota resultadoRota = new ResultadoRota();</b>
+<b class="nc"><i>67</i>&nbsp;                    resultadoRota.setIdEstabelecimento(solicitacaoEntrega.getIdEstabelecimento());</b>
+<b class="nc"><i>68</i>&nbsp;                    resultadoRota.setIdMotoboy(motoboyMaisProximo.getId());</b>
+<b class="nc"><i>69</i>&nbsp;                    resultadoRota.setRota(rota);</b>
+<b class="nc"><i>70</i>&nbsp;                    resultadoRota.setConsumoCombustivel((resultadoRota.getDistanciaEmMetros() / 1000) / cosumoMotocicleta);</b>
+<i>71</i>&nbsp;
+<b class="nc"><i>72</i>&nbsp;                    return resultadoRota;</b>
+<i>73</i>&nbsp;                })
+<b class="nc"><i>74</i>&nbsp;                .thenApply(resultadoRota -&gt; {</b>
+<b class="nc"><i>75</i>&nbsp;                    publisher.publishEvent(resultadoRota);</b>
+<i>76</i>&nbsp;
+<b class="nc"><i>77</i>&nbsp;                    return resultadoRota;</b>
+<i>78</i>&nbsp;                });
+<i>79</i>&nbsp;    }
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;    private void validaTodosClientesDentroDaDistanciaLimite(List&lt;ClienteDTO&gt; clientesDosPedidos, Posicao posicaoDeOrigem) {
+<i>82</i>&nbsp;
+<b class="nc"><i>83</i>&nbsp;        clientesDosPedidos.parallelStream()</b>
+<b class="nc"><i>84</i>&nbsp;                .forEach(cliente -&gt; {</b>
+<b class="nc"><i>85</i>&nbsp;                    double distanciaEmKilometros = posicaoDeOrigem.distancia(cliente.getPosicao());</b>
+<i>86</i>&nbsp;
+<b class="nc"><i>87</i>&nbsp;                    if (distanciaEmKilometros &gt; limiteKmEntrega) {</b>
+<b class="nc"><i>88</i>&nbsp;                        throw new ClienteMuitoDistanteException(cliente);</b>
+<i>89</i>&nbsp;                    }
+<b class="nc"><i>90</i>&nbsp;                });</b>
+<b class="nc"><i>91</i>&nbsp;    }</b>
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;
+<i>94</i>&nbsp;    private List&lt;ClienteDTO&gt; getClientesDosPedidos(List&lt;Pedido&gt; pedidos) {
+<b class="nc"><i>95</i>&nbsp;        return pedidos</b>
+<b class="nc"><i>96</i>&nbsp;                .stream()</b>
+<b class="nc"><i>97</i>&nbsp;                .map(Pedido::getIdCliente)</b>
+<b class="nc"><i>98</i>&nbsp;                .map(idCliente -&gt; clienteService.buscaPorId(idCliente).orElseThrow(() -&gt; new ClienteNaoEncontradoException(idCliente)))</b>
+<b class="nc"><i>99</i>&nbsp;                .collect(Collectors.toList());</b>
+<i>100</i>&nbsp;    }
+<i>101</i>&nbsp;
+<i>102</i>&nbsp;
+<i>103</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-02-11 15:21</div>
+</div>
+</body>
+</html>

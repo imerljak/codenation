@@ -1,0 +1,140 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: LeitorDeCsv</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">mapfood.csv</a> ]
+</div>
+
+<h1>Coverage Summary for Class: LeitorDeCsv (mapfood.csv)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LeitorDeCsv</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/ 10)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">LeitorDeCsv$MockitoMock$149715092</td>
+  </tr>
+  <tr>
+    <td class="name">LeitorDeCsv$MockitoMock$149715092$auxiliary$dNAx5uXj</td>
+  </tr>
+  <tr>
+    <td class="name">LeitorDeCsv$MockitoMock$149715092$auxiliary$HuRUS7C4</td>
+  </tr>
+  <tr>
+    <td class="name">LeitorDeCsv$MockitoMock$149715092$auxiliary$Oor7PqbY</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/ 10)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package mapfood.csv;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.fasterxml.jackson.databind.MappingIterator;
+<i>4</i>&nbsp;import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+<i>5</i>&nbsp;import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+<i>6</i>&nbsp;import mapfood.data.ImportacaoDeDadosChain;
+<i>7</i>&nbsp;import org.slf4j.Logger;
+<i>8</i>&nbsp;import org.slf4j.LoggerFactory;
+<i>9</i>&nbsp;import org.springframework.core.io.ClassPathResource;
+<i>10</i>&nbsp;import org.springframework.stereotype.Component;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;import java.io.File;
+<i>13</i>&nbsp;import java.util.Collections;
+<i>14</i>&nbsp;import java.util.List;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;/**
+<i>17</i>&nbsp; * Helper para parsing e importação de dados de arquivos CSV.
+<i>18</i>&nbsp; */
+<i>19</i>&nbsp;@Component
+<b class="fc"><i>20</i>&nbsp;public class LeitorDeCsv {</b>
+<i>21</i>&nbsp;
+<b class="fc"><i>22</i>&nbsp;    private Logger logger = LoggerFactory.getLogger(ImportacaoDeDadosChain.class);</b>
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    public &lt;T&gt; List&lt;T&gt; lerDados(Class&lt;T&gt; tClass, String filename) {
+<i>25</i>&nbsp;        try {
+<b class="fc"><i>26</i>&nbsp;            final CsvSchema schema = CsvSchema.emptySchema().withHeader();</b>
+<b class="fc"><i>27</i>&nbsp;            final CsvMapper mapper = new CsvMapper();</b>
+<b class="fc"><i>28</i>&nbsp;            final File file = new ClassPathResource(filename).getFile();</b>
+<b class="fc"><i>29</i>&nbsp;            final MappingIterator&lt;T&gt; iterator = mapper.readerFor(tClass).with(schema).readValues(file);</b>
+<i>30</i>&nbsp;
+<b class="fc"><i>31</i>&nbsp;            return iterator.readAll();</b>
+<b class="fc"><i>32</i>&nbsp;        } catch (Exception e) {</b>
+<b class="fc"><i>33</i>&nbsp;            logger.error(e.getMessage(), e);</b>
+<b class="fc"><i>34</i>&nbsp;            return Collections.emptyList();</b>
+<i>35</i>&nbsp;        }
+<i>36</i>&nbsp;    }
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-02-11 15:21</div>
+</div>
+</body>
+</html>

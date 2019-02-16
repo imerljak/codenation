@@ -1,0 +1,184 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Rota</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">mapfood.model.dto</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Rota (mapfood.model.dto)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Rota</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 14)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Rota$Trecho</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 9)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 23)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package mapfood.model.dto;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.fasterxml.jackson.annotation.JsonProperty;
+<i>4</i>&nbsp;import mapfood.model.jpa.Posicao;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import java.util.ArrayList;
+<i>7</i>&nbsp;import java.util.List;
+<i>8</i>&nbsp;
+<b class="nc"><i>9</i>&nbsp;public class Rota {</b>
+<i>10</i>&nbsp;
+<b class="nc"><i>11</i>&nbsp;    @JsonProperty</b>
+<i>12</i>&nbsp;    private List&lt;Trecho&gt; trechos = new ArrayList&lt;&gt;();
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;    public void adicionarTrecho(Trecho trecho) {
+<b class="nc"><i>15</i>&nbsp;        trechos.add(trecho);</b>
+<b class="nc"><i>16</i>&nbsp;    }</b>
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    public long getDistanciaTotal() {
+<b class="nc"><i>19</i>&nbsp;        return trechos</b>
+<b class="nc"><i>20</i>&nbsp;                .parallelStream()</b>
+<b class="nc"><i>21</i>&nbsp;                .mapToLong(Trecho::getDistanciaEmMetros)</b>
+<b class="nc"><i>22</i>&nbsp;                .sum();</b>
+<i>23</i>&nbsp;    }
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    public long getDurataoTotalEmSegundos() {
+<b class="nc"><i>26</i>&nbsp;        return trechos</b>
+<b class="nc"><i>27</i>&nbsp;                .parallelStream()</b>
+<b class="nc"><i>28</i>&nbsp;                .mapToLong(Trecho::getDuracaoEmSegundos)</b>
+<b class="nc"><i>29</i>&nbsp;                .sum();</b>
+<i>30</i>&nbsp;    }
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    public Rota merge(Rota toMerge) {
+<b class="nc"><i>33</i>&nbsp;        trechos.addAll(toMerge.trechos);</b>
+<b class="nc"><i>34</i>&nbsp;        return this;</b>
+<i>35</i>&nbsp;    }
+<i>36</i>&nbsp;
+<b class="nc"><i>37</i>&nbsp;    public static class Trecho {</b>
+<i>38</i>&nbsp;        private long distanciaEmMetros;
+<i>39</i>&nbsp;        private long duracaoEmSegundos;
+<i>40</i>&nbsp;        private Posicao inicio;
+<i>41</i>&nbsp;        private Posicao fim;
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;        public long getDistanciaEmMetros() {
+<b class="nc"><i>44</i>&nbsp;            return distanciaEmMetros;</b>
+<i>45</i>&nbsp;        }
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;        public void setDistanciaEmMetros(long distanciaEmMetros) {
+<b class="nc"><i>48</i>&nbsp;            this.distanciaEmMetros = distanciaEmMetros;</b>
+<i>49</i>&nbsp;        }
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;        public long getDuracaoEmSegundos() {
+<b class="nc"><i>52</i>&nbsp;            return duracaoEmSegundos;</b>
+<i>53</i>&nbsp;        }
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;        public void setDuracaoEmSegundos(long duracaoEmSegundos) {
+<b class="nc"><i>56</i>&nbsp;            this.duracaoEmSegundos = duracaoEmSegundos;</b>
+<i>57</i>&nbsp;        }
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;        public Posicao getInicio() {
+<b class="nc"><i>60</i>&nbsp;            return inicio;</b>
+<i>61</i>&nbsp;        }
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;        public void setInicio(Posicao inicio) {
+<b class="nc"><i>64</i>&nbsp;            this.inicio = inicio;</b>
+<i>65</i>&nbsp;        }
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;        public Posicao getFim() {
+<b class="nc"><i>68</i>&nbsp;            return fim;</b>
+<i>69</i>&nbsp;        }
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;        public void setFim(Posicao fim) {
+<b class="nc"><i>72</i>&nbsp;            this.fim = fim;</b>
+<i>73</i>&nbsp;        }
+<i>74</i>&nbsp;    }
+<i>75</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-02-11 15:21</div>
+</div>
+</body>
+</html>

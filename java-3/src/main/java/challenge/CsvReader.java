@@ -1,8 +1,5 @@
 package challenge;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -14,31 +11,26 @@ public class CsvReader {
     private String headers[];
     private List<String[]> lines = new ArrayList<>();
 
+    private final String csvFile;
+
     public CsvReader(String csvFile) {
-        readFile(csvFile);
+        this.csvFile = csvFile;
+
+        readFile(this.csvFile);
     }
 
     private void readFile(String fileName) {
 
-        ClassLoader classLoader = getClass().getClassLoader();
+        final ClassLoader classLoader = getClass().getClassLoader();
 
-        try (InputStream stream = classLoader.getResourceAsStream(fileName)) {
+        try (Scanner scanner = new Scanner(classLoader.getResourceAsStream(fileName))) {
 
-            if (stream == null) throw new FileNotFoundException();
+            this.headers = scanner.nextLine().split(CSV_SEPARATOR);
 
-            try (Scanner scanner = new Scanner(stream)) {
-
-                // Lê cabeçalho do CSV
-                this.headers = scanner.nextLine().split(CSV_SEPARATOR);
-
-                // Lê linhas do CSV
-                while (scanner.hasNextLine()) {
-                    lines.add(scanner.nextLine().split(CSV_SEPARATOR));
-                }
-
+            while (scanner.hasNextLine()) {
+                lines.add(scanner.nextLine().split(CSV_SEPARATOR));
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -46,14 +38,17 @@ public class CsvReader {
     public int countUnique(String headerName) {
         int index = headerIndex(headerName);
 
-        if (index < 0) return 0;
+        if (index >= 0) {
+            Set<String> uniqueSet = new HashSet<>();
 
-        return (int) lines
-                .stream()
-                .map(line -> line[index])
-                .filter(value -> !value.isEmpty())
-                .distinct()
-                .count();
+            lines.stream()
+                    .filter(strings -> !strings[index].isEmpty())
+                    .forEach(strings -> uniqueSet.add(strings[index]));
+
+            return uniqueSet.size();
+        }
+
+        return 0;
     }
 
     private int headerIndex(String headerName) {
@@ -99,8 +94,7 @@ public class CsvReader {
 
     }
 
-    public List<String> readColsBiSorted(String headerName, String secondSortHeader, String thirdSortHeader,
-                                         int limit) {
+    public List<String> readColsBiSorted(String headerName, String secondSortHeader, String thirdSortHeader, int limit) {
         int headerIndex = headerIndex(headerName);
         int secondSortIndex = headerIndex(secondSortHeader);
         int thirdSortIndex = headerIndex(thirdSortHeader);

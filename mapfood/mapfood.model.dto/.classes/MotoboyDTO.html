@@ -1,0 +1,112 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: MotoboyDTO</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">mapfood.model.dto</a> ]
+</div>
+
+<h1>Coverage Summary for Class: MotoboyDTO (mapfood.model.dto)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MotoboyDTO</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package mapfood.model.dto;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import mapfood.model.jpa.Posicao;
+<i>4</i>&nbsp;
+<b class="fc"><i>5</i>&nbsp;public class MotoboyDTO {</b>
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;    private Long id;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;    private Double latitude;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;    private Double longitude;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;    public Long getId() {
+<b class="fc"><i>14</i>&nbsp;        return id;</b>
+<i>15</i>&nbsp;    }
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    public void setId(Long id) {
+<b class="fc"><i>18</i>&nbsp;        this.id = id;</b>
+<b class="fc"><i>19</i>&nbsp;    }</b>
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    public Posicao getPosicao() {
+<b class="fc"><i>22</i>&nbsp;        return Posicao.of(latitude, longitude);</b>
+<i>23</i>&nbsp;    }
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    public void setPosicao(Posicao posicao) {
+<b class="fc"><i>26</i>&nbsp;        this.latitude = posicao.getLatitude();</b>
+<b class="fc"><i>27</i>&nbsp;        this.longitude = posicao.getLongitude();</b>
+<b class="fc"><i>28</i>&nbsp;    }</b>
+<i>29</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-02-11 15:21</div>
+</div>
+</body>
+</html>

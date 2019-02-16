@@ -1,0 +1,75 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: EstabelecimentoService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">mapfood.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: EstabelecimentoService (mapfood.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">EstabelecimentoService</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package mapfood.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import mapfood.model.dto.EstabelecimentoDTO;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import java.util.List;
+<i>6</i>&nbsp;import java.util.Optional;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;public interface EstabelecimentoService {
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;    /**
+<i>11</i>&nbsp;     * Retorna estabelecimento pelo id
+<i>12</i>&nbsp;     *
+<i>13</i>&nbsp;     * @param id id do estabelecimento
+<i>14</i>&nbsp;     * @return estabelecimento
+<i>15</i>&nbsp;     */
+<i>16</i>&nbsp;    Optional&lt;EstabelecimentoDTO&gt; findById(String id);
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    /**
+<i>19</i>&nbsp;     * Retorna todos estabelecimentos registrados.
+<i>20</i>&nbsp;     *
+<i>21</i>&nbsp;     * @return lista de estabelecimentos
+<i>22</i>&nbsp;     */
+<i>23</i>&nbsp;    List&lt;EstabelecimentoDTO&gt; findAll();
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    /*
+<i>26</i>&nbsp;     * TODO: método para retornar relalório de entregas do estabelecimento.
+<i>27</i>&nbsp;     */
+<i>28</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-02-11 15:21</div>
+</div>
+</body>
+</html>

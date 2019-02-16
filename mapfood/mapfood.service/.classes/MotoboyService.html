@@ -1,0 +1,82 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: MotoboyService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">mapfood.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: MotoboyService (mapfood.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">MotoboyService</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package mapfood.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import mapfood.model.dto.MotoboyDTO;
+<i>4</i>&nbsp;import mapfood.model.jpa.Posicao;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import java.util.List;
+<i>7</i>&nbsp;import java.util.Optional;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;public interface MotoboyService {
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;    /**
+<i>12</i>&nbsp;     * Retorna uma lista contendo todos os Motoboys registrados na base de dados.
+<i>13</i>&nbsp;     *
+<i>14</i>&nbsp;     * @return lista de motoboys
+<i>15</i>&nbsp;     */
+<i>16</i>&nbsp;    List&lt;MotoboyDTO&gt; buscaTodos();
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    /**
+<i>19</i>&nbsp;     * Retorna uma lista contendo todos os motoboys por proximidade detro de do raioEmKm
+<i>20</i>&nbsp;     * ordenados por distancia crescente.
+<i>21</i>&nbsp;     *
+<i>22</i>&nbsp;     * @param posicao  posicao inicial
+<i>23</i>&nbsp;     * @param raioEmKm raio em kms para considerar a pesquisa.
+<i>24</i>&nbsp;     * @return lista de motoboys ordenada pela distancia relativa a lat/long informada.
+<i>25</i>&nbsp;     */
+<i>26</i>&nbsp;    Optional&lt;MotoboyDTO&gt; buscaMaisProximo(Posicao posicao, Double raioEmKm);
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    /**
+<i>29</i>&nbsp;     * Busca um motoboy pelo seu id e retorna um {@link Optional} contendo o motoboy ou não, caso não exista.
+<i>30</i>&nbsp;     *
+<i>31</i>&nbsp;     * @return motoboy, ou não :)
+<i>32</i>&nbsp;     */
+<i>33</i>&nbsp;    Optional&lt;MotoboyDTO&gt; buscaPorId(Long id);
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-02-11 15:21</div>
+</div>
+</body>
+</html>
