@@ -23,4 +23,15 @@
 hs_err_pid*
 
 # Intellij
-**/.idea
+.idea/
+
+# VSCode
+.settings/
+
+# Mac Folder
+__MACOSX/
+
+# Build output folders
+out/
+target/
+build/
